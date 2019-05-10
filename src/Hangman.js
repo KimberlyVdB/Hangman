@@ -45,6 +45,15 @@ class Hangman extends PureComponent {
           <text x="200" y="225" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
             VERY SAD :(
           </text>
+          <g id="youwontext" display={progress < 5 ? '' : 'done'}>
+            <title>won</title>
+            <text x="200" y="180" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
+              YOU WON
+          </text>
+            <text x="200" y="225" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
+              NO HANGING
+          </text>
+          </g>
         </g>
       </svg>
     )
