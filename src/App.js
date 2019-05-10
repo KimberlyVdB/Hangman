@@ -19,9 +19,13 @@ class App extends React.Component {
         if (!this.state.word.includes(button)) {
             return this.setState({ progress: this.state.progress + 1 });
         }
-        // if (this.state.progress === 6) {
-        //     document.getElementsByTagName("button").disabled = true;
-        // }
+        if (this.state.progress === 6) {
+            document.getElementsByTagName("buttons").disabled = true;
+        }
+    }
+
+    restartGame(progress, word) {
+        this.setState({ progress: 0, word: getRandomWord(), guesses: [] });
     }
 
     componentWillMount() {
@@ -43,7 +47,7 @@ class App extends React.Component {
             {buttons}
             <br></br>
             {/* button to start new game */}
-            <button className="newGame">NEW GAME</button>
+            <button className="newGame" onClick={this.restartGame.bind(this)}>NEW GAME</button>
             <footer className="footer">
                 <p>Copyright by Sugarcube© powered by unicorns™🦄</p>
             </footer>
