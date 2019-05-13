@@ -7,10 +7,7 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { word: getRandomWord(), guesses: [], progress: 0, done: false, };
-        //     this.state = {
-        //         disabled: false
-        //     };
+        this.state = { word: getRandomWord(), guesses: [], progress: 0 };
     }
 
     pushGuess(button, e, word) {
@@ -22,25 +19,30 @@ class App extends React.Component {
         if (!this.state.word.includes(button)) {
             return this.setState({ progress: this.state.progress + 1 });
         }
-        // this.youWon()
     }
 
-    // disableButton(btn){
-    // 	document.getElementById(btn.id).disabled = true;
-    // }
+    disableBtn(btn) {
+        if (this.state.progress > 5) {
+            return true
+        } if (this.state.progress && done(this.state.word, this.state.guesses) === true) {
+            return true
+        } if (this.state.guesses.includes(btn)) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     restartGame(progress, word) {
-        this.setState({ progress: 0, word: getRandomWord(), guesses: [], done: false });
+        this.setState({ progress: 0, word: getRandomWord(), guesses: [] });
     }
-
-    // disabled={!enabled} ???
 
     render() {
         const { word, guesses, progress } = this.state;
         const wordToRender = renderWord(word, guesses);
         const guessButtons = "abcdefghijklmnopqrstuvwxyz".split("")
         const buttons = guessButtons.map(button => {
-            return <button ref="btn" key={button} onClick={(e) => this.pushGuess(button, e)}>{button}</button>
+            return <button ref="btn" key={button} disabled={this.disableBtn(button)} onClick={(e) => this.pushGuess(button, e)}>{button}</button>
         })
         const Layout = ({ children }) => // destructured assignment
             <div className="game">
@@ -54,34 +56,14 @@ class App extends React.Component {
                 </footer>
             </div>
         if (done(word, guesses)) {
-            return <Layout><Hangman progress={this.state.progress} done={true} /></Layout>
-        } if (progress > 5) {
-            return <Layout><Hangman progress={this.state.progress} /></Layout>
-        } else {
-            return <Layout><Hangman progress={this.state.progress} /></Layout>
+            return <Layout><Hangman progress={progress} done={true} /></Layout>
         }
-
-        //     const wordToRender = renderWord(word, guesses);
-        //     const guessButtons = "abcdefghijklmnopqrstuvwxyz".split("")
-        //     const buttons = guessButtons.map(button => {
-        //         return <button ref="btn" key={button} onClick={(e) => this.pushGuess(button, e)}>{button}</button>
-        //     })
-
-        //     return <div className="game">
-        //         <h1>Are you ready to HANG (out)? <span role="img" aria-label="img">⚰️</span></h1>
-        //         <Hangman progress={this.state.progress} win={this.state.win} />
-        //         <WordView renderWord={wordToRender} />
-        //         {buttons}
-        //         <br></br>
-        // <button className="newGame" onClick={this.restartGame.bind(this)}>NEW GAME</button>
-        // <footer className="footer">
-        //             <p>Copyright by Sugarcube© powered by rainbows <span role="img" aria-label="img" >™🌈</span></p>
-        //         </footer>
-        //     </div>;
+        else {
+            return <Layout><Hangman progress={progress} done={false} /></Layout>
+        }
     }
 
     componentDidMount() {
-
     }
 }
 
