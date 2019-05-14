@@ -3,9 +3,9 @@ import React, { PureComponent } from 'react';
 class Hangman extends PureComponent {
   render() {
     const {
-      progress
-    } = this.props
-
+      progress,
+      done
+    } = this.props;
     return (
       <svg width="530" height="320" xmlns="http://www.w3.org/2000/svg" className="hangman">
         <g id="stand">
@@ -45,17 +45,20 @@ class Hangman extends PureComponent {
           <text x="200" y="225" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
             VERY SAD :(
           </text>
-          <g id="youwontext" display={progress < 5 ? '' : 'done'}>
-            <title>won</title>
-            <text x="200" y="180" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
-              YOU WON
-          </text>
-            <text x="200" y="225" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
-              NO HANGING
-          </text>
-          </g>
         </g>
-      </svg>
+        <g id="youWonText" display={done ? '' : 'none'}>
+          <title>won</title>
+          <text x="190" y="160" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
+            YOU WON,
+          </text>
+          <text x="170" y="210" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
+            NO HANGING
+          </text>
+          <text x="200" y="260" fill="#ff9999" stroke=" #ff9999" style={{ fontSize: '50px', color: ' #ff9999' }}>
+            FOR YOU!
+          </text>
+        </g>
+      </svg >
     )
   }
 }
