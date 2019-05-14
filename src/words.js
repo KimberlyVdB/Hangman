@@ -5,9 +5,7 @@ export const getRandomWord = () => {
 };
 
 export const renderWord = (word, guesses) => {
-    console.log(guesses)
     const lettersOfWord = word.split("").map(letter => guesses.indexOf(letter) >= 0 ? letter : " _").join(' ');
-    console.log(word, lettersOfWord);
     let answereArray = [];
     for (let i = 0; i < word.length; i++) {
         const letter = word[i]
