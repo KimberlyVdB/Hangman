@@ -12,19 +12,19 @@ class App extends React.Component {
 
     pushGuess(button, e, word) {
         e.preventDefault();
-        // done(this.state.word, this.state.guesses);
         const guesses = [...this.state.guesses];
         guesses.push(button);
         this.setState({ guesses });
-        if (!this.state.word.includes(button)) {
-            return this.setState({ progress: this.state.progress + 1 });
+        if (!this.state.word.includes(button) && !done(this.state.word, this.state.guesses)) {
+            this.setState({ progress: this.state.progress + 1 });
         }
     }
 
     disableBtn(btn) {
         if (this.state.progress > 5) {
             return true
-        } if (this.state.progress && done(this.state.word, this.state.guesses) === true) {
+        }
+        if (done(this.state.word, this.state.guesses) === true) {
             return true
         } if (this.state.guesses.includes(btn)) {
             return true
@@ -44,10 +44,10 @@ class App extends React.Component {
         const buttons = guessButtons.map(button => {
             return <button ref="btn" key={button} disabled={this.disableBtn(button)} onClick={(e) => this.pushGuess(button, e)}>{button}</button>
         })
-        const Layout = ({ children }) => // destructured assignment
+        const Layout = ({ children }) =>
             <div className="game">
                 <h1>Are you ready to HANG (out)? <span role="img" aria-label="img">⚰️</span></h1>
-                <Hangman progress={this.state.progress} />
+                {children}
                 <WordView renderWord={wordToRender} />
                 {buttons}
                 <button className="newGame" onClick={this.restartGame.bind(this)}>NEW GAME</button>
