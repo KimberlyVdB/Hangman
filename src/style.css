@@ -56,6 +56,11 @@ footer{
 body{
     background-color: #cdffcd;
 }
+button:disabled,
+button[disabled]{
+  background-color:#ff9999;
+  color:white;
+}
 #root{
 border-style: hidden;
 }
