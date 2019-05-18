@@ -60,6 +60,7 @@ button:disabled,
 button[disabled]{
   background-color:#ff9999;
   color:white;
+  cursor: auto;
 }
 #root{
 border-style: hidden;
